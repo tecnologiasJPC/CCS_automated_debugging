@@ -38,7 +38,7 @@ bp1 = session.breakpoints.add("function1")
 # Set a second breakpoint using the address of the function UARTprintf
 #bp2Addr = session.expressions.evaluate("function1")
 #bp2 = session.breakpoints.add(bp2Addr)
-bp2_addr = session.expressions.evaluate("function1 + 0x8")
+bp2_addr = session.expressions.evaluate("function1 + 0x6")
 bp2 = session.breakpoints.add(bp2_addr)
 
 
@@ -64,11 +64,8 @@ print("Now you can see the target halted at function1")
 
 time.sleep(3)
 
-expectRunToHaltAt("function1 + 0x8")
+expectRunToHaltAt("function1 + 0x6")
 print("Now you can see the target halted at main.c:109")
-
-time.sleep(3)
-
 
 if session.target.isHalted():
     try:
@@ -92,9 +89,11 @@ if session.target.isHalted():
         # Verificar por expresion C
         option_expr = session.expressions.evaluate("option")
         print("option por expresion:", option_expr)
-        
+
     except Exception as e:
         print("No se pudo evaluar 'option':", e)
+
+time.sleep(3)
 
 sys.exit(0)
 
